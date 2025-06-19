@@ -47,3 +47,10 @@ No installation is required to use this application.
 ## Disclaimer
 
 Use at your own risk! This work is dedicated to the Public Domain. Fly Safe!
+
+## Contributions Welcome!
+
+* reviewing quiz questions for accuracy/applicability to FAA FAR 103 Ultralights.
+* creating Python Canvas "images" to include in the study topics.
+* add knowledge to topic areas.
+* fix reported issues or UI/UX improvements.
