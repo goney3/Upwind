@@ -137,7 +137,7 @@ class UltralightGroundSchoolApp:
         self.master = master
         master.title("Upwind: Part 103 Prep")
         # 1. Master geometry updated as requested
-        master.geometry("800x1150")
+        master.geometry("800x800")
         master.minsize(600, 800)
 
         # --- Styling ---
@@ -148,9 +148,9 @@ class UltralightGroundSchoolApp:
         self.light_text = '#ffffff'
         self.gray_text = '#808080'
         self.header_font = ("Helvetica", 26, "bold")
-        self.subheader_font = ("Helvetica", 12)
+        self.subheader_font = ("Helvetica", 12, "normal")
         self.button_font = ("Helvetica", 11, "bold")
-        self.body_font = ("Helvetica", 12)
+        self.body_font = ("Helvetica", 12, "normal")
         self.quiz_font = ("Helvetica", 14, "bold")
         
         # Define colors and fonts for easy modification of Airspace Chart
@@ -173,7 +173,7 @@ class UltralightGroundSchoolApp:
             "main_title": ("Helvetica", 18, "bold"),
             "class_label": ("Helvetica", 14, "bold"),
             "altitude_label": ("Helvetica", 10, "bold"),
-            "legend_label": ("Helvetica", 10),
+            "legend_label": ("Helvetica", 10, "normal"),
             "legend_title": ("Helvetica", 10, "bold"),
         }
 
@@ -185,6 +185,25 @@ class UltralightGroundSchoolApp:
         # --- Main Container ---
         self.container = Frame(master, bg=self.dark_bg)
         self.container.pack(fill="both", expand=True)
+        
+        self.study_categories = {
+            "Regulations & Rules": [
+                "FAR Part 103 Overview",
+                "FAR Part 103 Operations"
+            ],
+            "Flight Environment": [
+                "Airspace for Ultralights",
+                "Basic Weather for VFR Flight",
+                "Navigation and Sectional Charts",
+                "Airport Operations and Markings"
+            ],
+            "Aircraft & Pilot": [
+                "Aerodynamics for Ultralights",
+                "Ultralight Systems and Preflight",
+                "Human Factors (ADM & IMSAFE)",
+                "Emergency Procedures"
+            ]
+        }
 
         self.show_main_menu()
 
@@ -192,56 +211,79 @@ class UltralightGroundSchoolApp:
         for widget in self.container.winfo_children():
             widget.destroy()
 
-    def show_main_menu(self):
+    def show_main_menu(self, selected_category=None):
         self._clear_container()
-        # Define logo dimensions
-        logo_bg_size = 140  # The diameter of the blue circle
-        svg_native_size = 128 # The original size of the SVG drawing
+
+        # --- A SIMPLE, COMPACT LAYOUT ---
+
+        # 1. Create and pack the footer frame FIRST to reserve its space at the bottom.
+        footer_frame = Frame(self.container, bg=self.dark_bg)
+        footer_frame.pack(side="bottom", fill="x", pady=10)
+        Label(footer_frame, text="Use at own risk! No Rights Reserved. This work is dedicated to the Public Domain. Fly Safe!", 
+              font=("Helvetica", 10), bg=self.dark_bg, fg=self.gray_text).pack()
+
+        # 2. Create a single main frame to hold all other content.
+        main_content_frame = Frame(self.container, bg=self.dark_bg)
         
-        # Calculate the offset needed to center the 128x128 drawing inside the 140x140 circle
-        offset = (logo_bg_size - svg_native_size) / 2
+        # --- THIS IS THE CHANGE ---
+        # By removing `expand=True` and setting the anchor to "n" (North),
+        # the entire content block is pushed to the top of the available space.
+        # We add some top padding to prevent it from touching the window edge.
+        main_content_frame.pack(anchor="n", pady=(20, 0))
 
-        # Create the main canvas for the logo
-        logo_canvas = Canvas(self.container, width=logo_bg_size, height=logo_bg_size, 
-                             bg=self.dark_bg, highlightthickness=0)
-        logo_canvas.pack(pady=(20, 0)) # Add some padding on top
+        # --- All widgets below are placed in this frame with REDUCED PADDING ---
 
-        # 1. Draw the blue circle background first
-        logo_canvas.create_oval(2, 2, logo_bg_size-2, logo_bg_size-2, 
-                                fill=self.accent_color, outline="")
+        # Logo
+        logo_canvas = Canvas(main_content_frame, width=140, height=140, bg=self.dark_bg, highlightthickness=0)
+        logo_canvas.pack(pady=(0, 10)) # Reduced bottom padding
+        logo_canvas.create_oval(2, 2, 138, 138, fill=self.accent_color, outline="")
+        draw_svg_elements_on_tkinter(logo_canvas, svg_elements_data, x_offset=6, y_offset=6)
 
-        # 2. Call the function from your module to draw the logo on top
-        #    Pass the canvas, the data, and the calculated offsets.
-        draw_svg_elements_on_tkinter(
-            logo_canvas, 
-            svg_elements_data, 
-            x_offset=offset, 
-            y_offset=offset
-        )
-        #  Start of menu text and options.
-        Label(self.container, text="Upwind: Part 103 Prep", font=self.header_font,
-                 bg=self.dark_bg, fg=self.light_text).pack(pady=(40, 5))
-        Label(self.container, text="Prepare for your ultralight adventures. Study key topics and test your knowledge.",
-                 font=self.subheader_font, bg=self.dark_bg, fg=self.light_text, wraplength=700).pack(pady=(0, 40))
+        # Titles
+        Label(main_content_frame, text="Upwind: Part 103 Prep", font=self.header_font,
+                 bg=self.dark_bg, fg=self.light_text).pack(pady=5)
+        Label(main_content_frame, text="Prepare for your ultralight adventures. Study key topics and test your knowledge.",
+                 font=self.subheader_font, bg=self.dark_bg, fg=self.light_text, wraplength=700).pack(pady=(0, 15))
 
-        quiz_button = tk.Button(self.container, text="Start Quiz (20 Questions)", command=self.start_quiz,
+        # Quiz Button
+        quiz_button = tk.Button(main_content_frame, text="Start Quiz (20 Questions)", command=self.start_quiz,
                                 font=("Helvetica", 14, "bold"), bg=self.accent_color, fg=self.light_text,
-                                relief="flat", padx=20, pady=15, width=25)
-        quiz_button.pack(pady=20)
+                                relief="flat", padx=20, pady=5, width=25)
+        quiz_button.pack(pady=5)
 
-        Label(self.container, text="OR", font=self.subheader_font, bg=self.dark_bg, fg=self.light_text).pack(pady=10)
-        Label(self.container, text="Study Topics", font=("Helvetica", 16, "bold"), bg=self.dark_bg, fg=self.light_text).pack(pady=(10, 15))
+        # "OR" Label
+        Label(main_content_frame, text="OR", font=self.subheader_font, bg=self.dark_bg, fg=self.light_text).pack(pady=5)
 
-        topics_frame = Frame(self.container, bg=self.dark_bg)
-        topics_frame.pack()
+        # Frame for the study topics
+        topics_frame = Frame(main_content_frame, bg=self.dark_bg)
+        topics_frame.pack(pady=5)
 
-        for topic in self.study_topics_content.keys():
-            btn = tk.Button(topics_frame, text=topic, command=lambda t=topic: self.show_study_page(t),
-                            font=self.button_font, bg=self.button_bg, fg=self.light_text, relief="flat",
-                            padx=10, pady=10, width=45)
-            btn.pack(pady=4)
-        Label(self.container, text="Use at own risk!  No Rights Reserved. This work is dedicated to the Public Domain. Fly Safe!", font=("Helvetica", 10), bg=self.dark_bg, fg=self.gray_text).pack(side="bottom", pady=10)
+        if selected_category is None:
+            # Display Main Category Buttons
+            Label(topics_frame, text="Study Categories", font=("Helvetica", 16, "bold"), bg=self.dark_bg, fg=self.light_text).pack(pady=(0, 10))
+            for category_name in self.study_categories.keys():
+                btn = tk.Button(topics_frame, text=category_name,
+                                command=lambda c=category_name: self.show_main_menu(selected_category=c),
+                                font=self.button_font, bg=self.button_bg, fg=self.light_text, relief="flat",
+                                padx=10, pady=5, width=45)
+                btn.pack(pady=2)
+        else:
+            # Display Sub-Topic Buttons
+            Label(topics_frame, text=selected_category, font=("Helvetica", 16, "bold"), bg=self.dark_bg, fg=self.light_text).pack(pady=(0, 10))
+            for topic_name in self.study_categories[selected_category]:
+                btn = tk.Button(topics_frame, text=topic_name,
+                                command=lambda t=topic_name: self.show_study_page(t),
+                                font=self.button_font, bg=self.button_bg, fg=self.light_text, relief="flat",
+                                padx=10, pady=5, width=45)
+                btn.pack(pady=2)
 
+            # Add a "Back to Categories" button
+            back_button = tk.Button(topics_frame, text="< Back to Categories",
+                                    command=self.show_main_menu,
+                                    font=self.button_font, bg=self.accent_color, fg=self.light_text, relief="flat",
+                                    padx=10, pady=5, width=45)
+            back_button.pack(pady=(10, 0))
+            
     def show_study_page(self, topic_title):
         """ 2. Displays a specific study topic page within a scrollable frame. """
         self._clear_container()
