@@ -1,7 +1,8 @@
 # Upwind
 **Upwind: Part 103 Prep** is a desktop application designed to help you prepare for your ultralight adventures. Study key topics and test your knowledge with a comprehensive quiz feature.
 
-<img src="https://github.com/user-attachments/assets/55d73c47-bc81-4187-a7ff-83f8ef95095a" alt="UpwindScreenshot_2025-06-18" width="33%"/>
+![UpwindScreenshot_2025-06-19](https://github.com/user-attachments/assets/0ea8009d-8ff2-474d-a06b-01d069985bb2)
+
 
 ## Features
 
