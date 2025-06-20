@@ -12,7 +12,7 @@ offering study topics covering regulations, flight environment, aircraft systems
 It also includes a robust quiz engine with over 300 questions to test knowledge.
 The application incorporates custom SVG rendering for its logo and a detailed airspace graphic for educational purposes.
 
-Version: 1.0.2
+Version: 1.0.3
 Date: June 20, 2025
 Author: Keith F. - Ultralight Airplane Workshop
 License: Dedicated to the Public Domain. Use at own risk! No Rights Reserved.
@@ -831,7 +831,7 @@ class UltralightGroundSchoolApp:
             {"question_text": "What is the purpose of a VASI or PAPI lighting system?", "options": ["To indicate wind direction.", "To provide visual glide slope guidance for landing.", "To light up the taxiways.", "To show the direction of the traffic pattern."], "correct_answer": "To provide visual glide slope guidance for landing.", "explanation": "VASI (Visual Approach Slope Indicator) and PAPI (Precision Approach Path Indicator) are systems of lights that help a pilot maintain the correct vertical path to the runway. 'Red over white, you're alright' is a common mnemonic for a PAPI."},
             {"question_text": "You are on a taxiway approaching a runway. You see a sign with a red background and white numbers. What is this?", "options": ["A location sign.", "A direction sign.", "A mandatory instruction sign indicating an entrance to a runway.", "A distance remaining sign."], "correct_answer": "A mandatory instruction sign indicating an entrance to a runway.", "explanation": "Red background signs are mandatory instructions. This sign indicates you are approaching a runway and must hold short and get clearance from ATC (at a towered field) or ensure it's clear (at a non-towered field) before proceeding."},
             {"question_text": "You are approaching a non-towered airport and see a segmented circle with a 'landing strip indicator' (a large 'T' or tetrahedron) pointing to runway 27. What does this indicate?", "options": ["The airport is closed.", "The active runway for landing and takeoff is Runway 27.", "The airport has a control tower.", "You should land on the taxiway."], "correct_answer": "The active runway for landing and takeoff is Runway 27.", "explanation": "The landing strip indicator (wind tetrahedron or large 'T') is a primary visual aid at non-towered airports, indicating the direction of landing and takeoff, which is typically into the wind."},
-            {"question_text": "What is the purpose of a 'runway incursion hot spot' depicted on an airport diagram or chart?", "options": ["It's a designated area for aircraft parking.", "It's an area with high temperatures.", "It's a location on an airport with a history or potential risk of collisions or runway incursions.", "It's where you can get fuel."], "correct_answer": "It's a location on an airport with a history or potential risk of collisions or runway incursions.", "explanation": "Hot spots are identified areas on an airport where extra vigilance is required due to complex taxiway layouts, confusing intersections, or a history of incidents. Pilots should pay close attention when operating in these areas."}
+            {"question_text": "What is the purpose of a 'runway incursion hot spot' depicted on an airport diagram or chart?", "options": ["It's a designated area for aircraft parking.", "It's an area with high temperatures.", "It's a location on an airport with a history or potential risk of collisions or runway incursions.", "It's where you can get fuel."], "correct_answer": "It's a location on an airport with a history or potential risk of collisions or runway incursions.", "explanation": "Hot spots are identified areas on an airport where extra vigilance is required due to complex taxiway layouts, confusing intersections, or a history of incidents. Pilots should pay close attention when operating in these areas."},
             {"question_text": "What is the recommended entry to a standard airport traffic pattern?", "options": ["A straight-in approach to the final leg.", "Enter at a 45-degree angle to the downwind leg, at pattern altitude.", "Fly directly over the center of the airport and descend.", "Enter on the crosswind leg."], "correct_answer": "Enter at a 45-degree angle to the downwind leg, at pattern altitude.", "explanation": "This provides the best opportunity to see and be seen by other aircraft already in the pattern and to establish proper spacing."},
             {"question_text": "A segmented circle has L-shaped indicators with the long leg parallel to the runway. What do they indicate?", "options": ["The length of the runway.", "The direction of the traffic pattern.", "The location of the fuel pumps.", "The best place to park."], "correct_answer": "The direction of the traffic pattern.", "explanation": "The L-shaped indicators show how to fly the pattern. For example, if the 'L' makes a box around the runway symbol, it indicates a standard left-hand pattern. If it points away, it indicates a right-hand pattern."},
             {"question_text": "What does a tetrahedron on an airport indicate?", "options": ["The traffic pattern direction.", "The direction of landing and takeoff.", "The location of a hazard.", "The elevation of the airport."], "correct_answer": "The direction of landing and takeoff.", "explanation": "A tetrahedron is a landing direction indicator. You land in the direction the tetrahedron's small end is pointing."},
@@ -916,7 +916,7 @@ class UltralightGroundSchoolApp:
             {"question_text": "What does the 'M' in the IMSAFE checklist stand for?", "options": ["Macho", "Mental state", "Medication", "Motivation"], "correct_answer": "Medication", "explanation": "The 'M' prompts a pilot to consider any prescription or over-the-counter medications they are taking and the potential effects those drugs could have on their ability to fly safely."},
             {"question_text": "The decision to continue a flight into deteriorating weather because you've already flown most of the way is an example of what cognitive bias?", "options": ["Confirmation Bias", "Optimism Bias", "Sunk Cost Fallacy", "Anchoring Bias"], "correct_answer": "Sunk Cost Fallacy", "explanation": "This is the fallacy of continuing a course of action because of the time or effort already invested. The safe decision is to turn around, regardless of how much progress you've made."},  
         ]
-
+    
 if __name__ == "__main__":
     root = tk.Tk()
     # This part ensures the full content is loaded correctly, replacing the "..." placeholders.
@@ -926,226 +926,463 @@ if __name__ == "__main__":
             FAR Part 103 is the section of the Federal Aviation Regulations that governs ultralight vehicles in the United States. It was established in 1982 to create a safe and minimally regulated way for individuals to enjoy recreational flight.
 
             Key Principles of Part 103:
-            - No Pilot Certificate: You are not required to have a pilot license or medical certificate.
-            - No Registration: The vehicle does not need to be registered or have an N-number.
-            - No Airworthiness Certificate: The vehicle is not certified by the FAA.
+                No Pilot Certificate: You are not required to have a pilot license or medical certificate.
+                No Registration: The vehicle does not need to be registered or have an Nnumber.
+                No Airworthiness Certificate: The vehicle is not certified by the FAA.
+                No Minimum Age: FAR Part 103 does not specify a minimum age for operating an ultralight.
 
             This freedom means the pilot bears 100% of the responsibility for safety, maintenance, and legal operation.
 
             To qualify as a legal Part 103 ultralight, a vehicle must meet strict criteria:
-            1.  Use: For recreational or sport purposes only.
+            1.  Use: For recreational or sport purposes only. Commercial operations, use for compensation or hire, or business purposes like commuting are prohibited.
             2.  Occupancy: Can only carry a single occupant.
             3.  Powered Vehicles:
-                - Empty Weight: Less than 254 pounds (115 kg). This excludes floats and safety devices like ballistic parachutes.
-                - Fuel Capacity: Maximum of 5 U.S. gallons.
-                - Max Speed: Not capable of more than 55 knots (63 mph) in level flight.
-                - Stall Speed: Power-off stall speed not exceeding 24 knots (28 mph).
+                    Empty Weight: Less than 254 pounds (115 kg). This excludes floats and safety devices like ballistic parachutes, but includes all other installed equipment such as radios and GPS.
+                    Fuel Capacity: Maximum total capacity of 5 U.S. gallons.
+                    Max Speed: Not capable of more than 55 knots (63 mph) in level flight.
+                    Stall Speed: Poweroff stall speed not exceeding 24 knots (28 mph).
             4.  Unpowered Vehicles (e.g., Hang Gliders, Paragliders):
-                - Empty Weight: Less than 155 pounds (70 kg).
+                    Empty Weight: Less than 155 pounds (70 kg).
 
-            If a vehicle exceeds ANY of these limitations, it is not a Part 103 ultralight and must be registered as an experimental or light-sport aircraft (LSA), requiring a pilot license to operate.
+            If a vehicle exceeds ANY of these limitations, it is not a Part 103 ultralight and must be registered as an experimental or lightsport aircraft (LSA), requiring a pilot license to operate.
         """)),
         "FAR Part 103 Operations": textwrap.dedent(app_instance.study_topics_content["FAR Part 103 Operations"].replace("...", """
             Operating an ultralight vehicle legally and safely involves adhering to specific operational rules designed to protect both the pilot and people on the ground.
 
+            Definition of an Ultralight Vehicle (FAR Part 103.1):
+                An ultralight vehicle is designed and operated as a single occupant vehicle. This means multioccupancy designs (like bench seats wide enough for two) typically disqualify a vehicle from Part 103 compliance, even if only one person is carried.
+
             §103.9 Hazardous operation:
-            - No person may operate an ultralight vehicle in a manner that creates a hazard to other persons or property.
-            - No person may allow an object to be dropped from an ultralight vehicle if such action creates a hazard.
+                No person may operate an ultralight vehicle in a manner that creates a hazard to other persons or property. This broad rule prohibits reckless flying (e.g., buzzing houses, flying extremely low over roads, aerobatics in unsuitable vehicles).
+                No person may allow an object to be dropped from an ultralight vehicle if such action creates a hazard. Dropping harmless objects over unpopulated areas for purposes like wind gauging is generally permissible if no hazard is created.
 
             §103.11 Daylight operations:
-            - Ultralights may only be operated between sunrise and sunset.
-            - Exception: Operation is allowed during the 30-minute twilight periods (before sunrise and after sunset) ONLY IF the vehicle is equipped with an operating anti-collision light visible for 3 statute miles and remains in Class G (uncontrolled) airspace.
+                Ultralights may only be operated between sunrise and sunset (daylight hours).
+                Exception: Operation is allowed during the 30minute civil twilight periods (before sunrise and after sunset) ONLY IF the vehicle is equipped with an operating anticollision light visible for at least 3 statute miles and remains in Class G (uncontrolled) airspace.
 
             §103.15 Operations over congested areas:
-            - Flight over any congested area of a city, town, or settlement, or over any open-air assembly of persons is STRICTLY PROHIBITED.
-            - What is "congested"? The FAA does not give a precise definition. Pilots must be extremely conservative. A single-engine failure must always allow for a safe emergency landing without endangering anyone on the ground. If you cannot guarantee that, you should not be flying there.
+                Flight over any congested area of a city, town, or settlement, or over any openair assembly of persons (like concerts or stadiums) is STRICTLY PROHIBITED.
+                What is "congested"? The FAA does not give a precise definition. Pilots must be extremely conservative. The rule aims to protect people on the ground; a singleengine failure must always allow for a safe emergency landing without endangering anyone on the ground. If you cannot guarantee that, you should not be flying there.
 
-            §103.13 Right-of-way rules:
-            - See and Avoid: Every pilot is responsible for seeing and avoiding other aircraft.
-            - Yielding: An ultralight vehicle must yield the right-of-way to ALL other aircraft.
-            - Powered vs. Unpowered: A powered ultralight must yield to an unpowered ultralight (e.g., hang glider).
+            §103.13 Rightofway rules:
+                See and Avoid: Every pilot is responsible for maintaining vigilance to see and avoid other aircraft. Its fundamental purpose is to prevent midair collisions.
+                Yielding: An ultralight vehicle must yield the rightofway to ALL other aircraft (e.g., airplanes, gliders, balloons).
+                    Powered vs. Unpowered: A powered ultralight must yield to an unpowered ultralight (e.g., hang glider, paraglider).
+                    Converging (same category): When two aircraft of the same category are converging at approximately the same altitude (not headon), the aircraft to the right has the rightofway.
+                Overtaking: An aircraft that is being overtaken has the rightofway. The overtaking aircraft must alter course to the right to pass well clear.
+                    Headon Approach: When two aircraft are approaching headon, or nearly so, each pilot of each aircraft shall alter course to the right to pass safely.
+                    Landing: An aircraft on final approach to land, or while landing, has the rightofway over other aircraft in the air or on the surface.
+
+            Altitude Limitations and Airspace:
+                FAR Part 103 does not specify a maximum altitude for ultralight operations.
+                However, flight is effectively limited by adherence to airspace rules (e.g., prohibition from entering Class A airspace at 18,000 feet MSL) and VFR weather minimums. Ultralight operations are generally conducted in Class G airspace.
+
+            Recommended Practices / Environmental Considerations:
+                While not explicit Part 103 rules, pilots are strongly requested to maintain a minimum of 2,000 feet AGL (Above Ground Level) when flying over national parks and wildlife refuges to protect wildlife and the natural experience.
         """)),
         "Airspace for Ultralights": textwrap.dedent(app_instance.study_topics_content["Airspace for Ultralights"].replace("...", """
             Understanding airspace is critical to avoid conflicts with other aircraft and to operate legally. Ultralights are primarily intended for use in uncontrolled airspace.
 
             §103.17 Airspace restrictions:
             No person may operate an ultralight vehicle within the following airspace without prior authorization from Air Traffic Control (ATC):
-            - Class A (18,000 feet and above)
-            - Class B (Surrounding major airports)
-            - Class C (Surrounding busy airports)
-            - Class D (Surrounding airports with a control tower)
-            - The lateral boundaries of the surface area of Class E airspace designated for an airport.
+                Class A (Alpha) Airspace: Begins at 18,000 feet Mean Sea Level (MSL) up to Flight Level 600 (approximately 60,000 feet). This airspace requires Instrument Flight Rules (IFR) and specific equipment, making it inaccessible to ultralights under any circumstances.
+                Class B (Bravo) Airspace: Surrounds the nation's busiest airports and is depicted by solid blue lines on sectional charts.
+                Class C (Charlie) Airspace: Surrounds busy airports, depicted by solid magenta lines.
+                Class D (Delta) Airspace: Surrounds airports with an operational control tower, depicted by dashed blue lines. Typically extends from the surface up to 2,500 feet Above Ground Level (AGL), with lateral dimensions based on instrument approach procedures.
+                The lateral boundaries of the surface area of Class E (Echo) airspace designated for an airport, depicted by a dashed magenta line.
 
-            This means ultralights are FORBIDDEN from these controlled airspaces unless you call the controlling ATC facility on the phone beforehand and receive explicit permission. This is rarely granted.
+            Ultralights are generally restricted from Class B, C, and D airspace due to the high volume of fast, IFR (Instrument Flight Rules) traffic managed by ATC, as ultralights are slow and often not radioequipped. If you are approaching Class B airspace, you must turn to avoid entering it well before reaching its boundary. Obtaining prior ATC authorization for these airspaces is rarely granted.
 
-            Primary Operating Airspace:
-            - Class G (Golf) Airspace: This is uncontrolled airspace and where nearly all ultralight flying occurs. It typically exists from the surface up to 1,200 feet AGL or, in some remote areas, up to 14,500 feet MSL.
-            - Class E (Echo) Airspace: You may operate in Class E airspace that is NOT at the surface. Most Class E airspace begins at 700 or 1,200 feet AGL. You must remain clear of clouds and meet visibility requirements.
+            Primary Operating Airspace for Ultralights:
+                Class G (Golf) Airspace: This is uncontrolled airspace and where nearly all ultralight flying occurs. It typically exists from the surface up to 1,200 feet AGL. In remote areas, especially the Western US (indicated by unshaded, white areas on sectional charts), Class G can extend up to 14,500 feet MSL. Twoway radio communication is not required in Class G airspace. The "ceiling" of Class G airspace refers to the floor of the overlying controlled airspace, usually Class E.
+                Class E (Echo) Airspace: You may operate in Class E airspace that does NOT extend to the surface at an airport without ATC authorization. Most Class E airspace begins at 700 feet AGL (indicated by shaded magenta lines) or 1,200 feet AGL (indicated by shaded blue lines or unshaded areas where Class E starts above 1,200 AGL). 
+
+            VFR Weather Minimums for Ultralights (Class G Airspace):
+                To operate legally in Class G airspace, you must comply with specific VFR weather minimums. Inadvertently flying into a cloud violates these minimums. 
+                At or below 1,200 feet AGL: 1 statute mile visibility, remain clear of clouds. 
+                Above 1,200 feet AGL but below 10,000 feet MSL (day): 1 statute mile visibility, 500 feet below clouds, 1,000 feet above clouds, and 2,000 feet horizontal from clouds.
+                At or above 10,000 feet MSL (day): 5 statute miles visibility, 1,000 feet below clouds, 1,000 feet above clouds, and 1 statute mile horizontal from clouds.
+
+            Special Use Airspace (SUA) and Other Chart Markings:
+                Prohibited Areas ('P' followed by a number, e.g., P40): Entry is strictly forbidden at all times.
+                Restricted Areas ('R' followed by a number, e.g., R2501): Contain unusual hazards (like artillery firing). Flight within these areas is subject to restrictions; you cannot enter when active without permission.
+                Military Operations Areas (MOAs): Areas where military training activities are conducted. VFR flight is allowed, but extreme caution is advised, and it's wise to check active times before flight.
+                Alert Areas ('A' followed by a number): Areas with a high volume of pilot training or unusual aerial activity. Entry is not prohibited, but pilots should be extra vigilant.
+                Temporary Flight Restrictions (TFRs): Temporary areas where flight is restricted due to hazards (like wildfires), security (e.g., VIP movements), or special events (airshows, major sporting events). It is critical to check for TFRs before every flight.
+                Parachute Jumping Areas: Indicated by a parachute symbol on charts. Be extra vigilant and yield the right of way to any parachutists.
 
             How to Identify Airspace:
-            - You MUST learn to read a VFR Sectional Chart. It is the roadmap of the sky.
-            - Solid blue lines depict Class B, solid magenta for Class C, dashed blue for Class D, and various magenta/blue shading for Class E floors. Unmarked areas are typically Class G.
+                You MUST learn to read a VFR Sectional Chart. It is the roadmap of the sky.
+                Solid blue lines depict Class B, solid magenta for Class C, dashed blue for Class D, and various magenta/blue shading (700 ft AGL floors) or unshaded areas (1200 ft AGL floors, or 14,500 ft MSL floors in the Western US) for Class E. Dashed magenta lines indicate Class E surface areas. Unmarked white areas are typically Class G.
         """)),
         "Basic Weather for VFR Flight": textwrap.dedent(app_instance.study_topics_content["Basic Weather for VFR Flight"].replace("...", """
             As an ultralight pilot, you fly under Visual Flight Rules (VFR). This means you must be able to see where you are going and avoid clouds. Weather is the single most significant external factor affecting flight safety.
 
             §103.23 Flight visibility and cloud clearance requirements:
-            - In Class G Airspace (where you'll be flying):
-              - 1,200 feet or less above the ground (AGL): 1 statute mile visibility and you must remain Clear of Clouds.
-              - More than 1,200 feet AGL but below 10,000 feet MSL: 1 statute mile visibility, and maintain 500 feet below, 1,000 feet above, and 2,000 feet horizontal distance from clouds.
+                In Class G Airspace (where you'll be flying):
+                1,200 feet or less above the ground (AGL): 1 statute mile visibility and you must remain Clear of Clouds.
+                More than 1,200 feet AGL but below 10,000 feet MSL: 1 statute mile visibility, and maintain 500 feet below, 1,000 feet above, and 2,000 feet horizontal distance from clouds.
 
             Key Weather Phenomena for Ultralight Pilots:
-            - Wind: Ultralights have low mass and large wing surfaces, making them very susceptible to wind. Always check wind speed and direction, including gusts. Avoid flying in conditions that approach your aircraft's crosswind limits.
-            - Turbulence: Can be mechanical (from wind flowing over terrain/buildings) or thermal (from rising columns of warm air - "thermals"). Thermal turbulence is common on sunny afternoons. Both can cause loss of control.
-            - Density Altitude: This is pressure altitude corrected for non-standard temperature. On hot days, the air is less dense. This significantly reduces engine performance and lift. Your takeoff roll will be longer, and your climb rate will be much weaker.
-            - Fog/Low Clouds: If there is any chance of fog or low clouds forming, do not fly. VFR flight into IMC (Instrument Meteorological Conditions) is a leading cause of fatal accidents due to spatial disorientation.
+                Primary Cause of Weather: All weather phenomena are primarily caused by the uneven heating of the Earth's surface by the sun, leading to temperature and pressure differences that drive atmospheric motion.
+                Wind: Ultralights have low mass and large wing surfaces, making them very susceptible to wind. Always check wind speed and direction, including gusts.
+                A limp windsock indicates calm or very light winds.
+                A headwind decreases your groundspeed.
+                A tailwind increases your landing distance.
+                A crosswind is wind blowing from the side, across the runway or flight path, requiring specific control inputs during takeoff and landing.
+            
+            Gusts: Strong and gusty winds, especially those approaching an ultralight's stall speed (e.g., 30 knots for a 55knot top speed ultralight), are extremely hazardous and can lead to a high risk of losing aircraft control.
+                Wind Shear: A sudden, drastic change in wind speed and/or direction over a small area. It is a serious hazard, particularly during takeoff and landing, as it can cause rapid changes in airspeed and lift.
+                Sea Breeze: A wind that blows from the sea toward the land, typically during the day, as the land heats faster than the sea.
+                To determine surface wind direction, observe a windsock or smoke from a chimney.
 
-            Weather Resources:
-            - Before every flight, get a proper weather briefing. Use resources like aviationweather.gov or apps like ForeFlight. Look at METARs (current conditions) and TAFs (forecasts).
+            Turbulence:
+                Mechanical turbulence is caused by wind flowing over uneven terrain, buildings, or trees due to friction and airflow disruption.
+                Thermal turbulence (from rising columns of warm air  "thermals") is common on sunny afternoons. Both types can cause loss of control.
+                Flying on the leeward (downwind) side of a mountain in strong winds is dangerous due to powerful downdrafts and rotor turbulence, which can exceed an aircraft's climb capability.
+
+            Density Altitude: This is pressure altitude corrected for nonstandard temperature.
+                On hot, humid days, the air is less dense (high density altitude). This significantly reduces engine performance and lift, leading to longer takeoff rolls and much weaker climb rates. It significantly degrades takeoff, climb, and engine performance.
+            
+            Air Mass Characteristics:
+                Stable Air Mass: Typically associated with steady precipitation and poor visibility (stratiform clouds, fog, drizzle). Stable air resists vertical motion.
+                Unstable Air Mass: Characterized by good visibility and vertical cloud development (cumulus clouds). Unstable air encourages vertical motion, leading to the formation of puffy clouds that can grow into thunderstorms.
+                Towering Cumulus Clouds: Suggest an unstable air mass with strong vertical air currents, which can quickly develop into thunderstorms.
+                Fog/Low Clouds: If there is any chance of fog or low clouds forming, do not fly. When temperature and dew point are very close, fog or low clouds are likely to form due to air saturation and water vapor condensation.
+                Radiation Fog: Forms on clear nights as the ground cools, cooling the air above it to the dew point. It typically burns off in the morning.
+                Advection Fog: Forms when moist air moves over a colder surface, cooling it to the dew point. Common in coastal areas.
+
+            Structural Icing:
+                Freezing Level: Knowing the freezing level (altitude at 0° Celsius) is crucial to avoid structural icing if flying in visible moisture (clouds or precipitation) above this level. Ultralights are not equipped to fly in icing conditions.
+                Rime Ice: A rough, milky, opaque ice formed by the instantaneous freezing of small supercooled water droplets. It can build up on airfoils, reducing lift and increasing drag.
+
+            Thunderstorms:
+                A line of thunderstorms often indicates the passage of a cold front, suggesting severe weather and unstable air.
+                Microburst: A powerful, localized downdraft often associated with thunderstorms, creating intense wind shear and posing an extreme hazard, especially at low altitudes.
+                VFR into IMC: The primary danger of flying a VFRonly vehicle into clouds (Instrument Meteorological Conditions) is spatial disorientation leading to loss of control, as visual reference to the horizon is lost and inner ear sensations can be false. VFR are Visual Flight Rules, under which a pilot operates an aircraft in weather conditions clear enough to allow visual navigation.
+
+            Weather Resources & Safety Practices:
+                Before every flight, get a proper weather briefing. Use official sources like aviationweather.gov or call 1800WXBRIEF. Look at METARs (current conditions) and TAFs (forecasts).
+                Personal Weather Minimums: It is a good idea to add a 'personal weather minimums' buffer to the legal VFR minimums. This provides an extra margin of safety and reduces stress, keeping you further away from dangerous conditions.
+                Encountering Worse Weather Than Forecast: If you encounter weather worse than forecast, the safest and most prudent action is to turn around and return to your departure point or land at a nearby suitable airport. Pressing on into deteriorating conditions is a leading cause of accidents.
         """)),
         "Aerodynamics for Ultralights": textwrap.dedent(app_instance.study_topics_content["Aerodynamics for Ultralights"].replace("...", """
-            Understanding the basic forces of flight is essential for safe control of your aircraft.
+            Understanding the basic forces of flight and aerodynamic principles is essential for safe control of your aircraft.
 
-            The Four Forces:
-            In steady, level flight, four forces are in equilibrium:
-            - Lift: The upward force created by air flowing over the wings, opposing weight.
-            - Weight: The downward force of gravity.
-            - Thrust: The forward force generated by the engine/propeller, opposing drag.
-            - Drag: The rearward force of air resistance.
+            The Four Forces of Flight:
+            In steady, level, unaccelerated flight, four fundamental forces are in equilibrium:
+                Lift: The upward aerodynamic force created by air flowing over the wings, opposing weight.
+                Weight: The downward force of gravity acting on the aircraft's mass.
+                Thrust: The forward force generated by the engine/propeller, opposing drag.
+                Drag: The rearward force of air resistance, opposing thrust.
 
             Angle of Attack (AOA):
-            - This is the angle between the wing's chord line (an imaginary line from the leading to the trailing edge) and the oncoming air (the relative wind).
-            - Lift is directly related to AOA. As you increase AOA (by pulling back on the stick), you increase lift, up to a certain point.
+                The AOA is the angle between the wing's chord line (an imaginary straight line from the leading edge to the trailing edge of the wing) and the relative wind (the oncoming air).
+                Lift is directly related to AOA. Increasing the AOA (by pulling back on the stick/yoke) increases lift, up to a critical point.
 
             Stalls:
-            - A stall is NOT an engine failure. It is an aerodynamic event where the wing exceeds its critical angle of attack.
-            - At the critical AOA, the smooth airflow over the top of the wing separates and becomes turbulent. This causes a sudden and dramatic loss of lift.
-            - A stall can happen at ANY airspeed and ANY attitude if the critical AOA is exceeded.
-            - Recovery: Immediately and automatically lower the nose to reduce the AOA below the critical angle. Once airflow is restored, you can level the wings and gently pull out of the resulting dive.
+                A stall is a purely aerodynamic event, not an engine failure. It occurs when the wing exceeds its critical angle of attack.
+                At the critical AOA, the smooth airflow over the wing's upper surface separates and becomes turbulent, causing a sudden and dramatic loss of lift.
+                A stall can occur at ANY airspeed and ANY flight attitude if the critical AOA is exceeded, including in turns with increased load factor.
+                Stall Speed: Increases with increased load factor. In a 60degree banked turn, the load factor is 2 Gs, and the stall speed increases significantly.
+                Recovery Procedure: The immediate and correct recovery is to decrease the angle of attack by lowering the nose (pushing the control stick forward). Once smooth airflow is restored, you can gently level the wings and pull out of the dive.
+
+            Flight Control Surfaces and Axes of Motion:
+            Aircraft movement is controlled around three axes:
+                Longitudinal Axis (Roll): Controlled by Ailerons, located on the trailing edge of the wings. They move in opposite directions to create a differential in lift, causing the aircraft to roll or bank.
+                Lateral Axis (Pitch): Controlled by the Elevator, located on the horizontal stabilizer. It controls the aircraft's pitch, causing the nose to move up or down.
+                Vertical Axis (Yaw): Controlled by the Rudder, located on the vertical stabilizer. Its primary function is to control yaw (movement of the nose left and right) and to counteract adverse yaw.
 
             Adverse Yaw:
-            - When you roll into a turn, the outside, rising wing generates more lift (and thus more drag) than the inside, descending wing. This extra drag yaws the nose of the aircraft to the outside of the turn.
-            - On aircraft with rudder control, you must apply rudder in the direction of the turn to counteract adverse yaw and keep the turn coordinated.
+                When rolling into a turn, the outside, upwarddeflected aileron creates more drag (due to increased lift) than the inside, descending aileron. This extra drag pulls the aircraft's nose away from the direction of the roll.
+                This tendency must be corrected with coordinated rudder input in the direction of the turn.
 
             Load Factor:
-            - Load factor is the ratio of the total lift being produced to the aircraft's weight. In straight and level flight, it is 1 G.
-            - In a banked turn, lift must support the aircraft's weight AND provide the horizontal force to make it turn. This increases the load factor.
-            - In a 60-degree bank turn, the load factor is 2 Gs. The aircraft "feels" twice as heavy, and the stall speed increases by about 41%. This is a critical concept: you can stall at a much higher airspeed in a steep turn.
+                Load factor is the ratio of the total lift being produced to the aircraft's weight. In straightandlevel flight, it is 1 G.
+                In a banked turn, the wings must support the aircraft's weight AND provide the horizontal force to make it turn, which increases the load factor. For example, a 60degree bank results in a 2 G load factor.
+
+            Flaps:
+                Flaps are highlift devices located on the trailing edge of the wings.
+                Their purpose is to increase both lift and drag, allowing for a steeper approach path and slower landing speed, which is beneficial for short field landings.
+
+            Ground Effect:
+                An aerodynamic phenomenon where the wings become more efficient due to the compression of air between the wings and the ground, typically occurring when flying within one wingspan of the surface.
+                It reduces induced drag, causing the aircraft to "float" during landing or become airborne before reaching a safe climbing speed during takeoff.
+
+            Relationship between Airspeed and Lift:
+                Lift increases as the square of the airspeed increases (L ~ V^2). Doubling your airspeed quadruples the amount of lift generated, assuming all other factors remain constant.
+
+            Types of Drag:
+                Induced Drag: Drag that is a byproduct of producing lift. It is created by wingtip vortices (formed by highpressure air below the wing moving to the lowpressure area above it). Induced drag is greatest at slow airspeeds and high angles of attack.
+                Parasite Drag: Drag caused by the shape of the aircraft and the friction of air moving over its surfaces. It includes form drag, skin friction drag, and interference drag. Parasite drag increases as the square of the airspeed.
+                Total Drag: The sum of induced drag and parasite drag. Total drag is at a minimum where parasite drag and induced drag are equal. This point corresponds to the aircraft's best glide speed and maximum endurance speed.
+
+            Angle of Incidence:
+                The fixed angle at which the wing is mounted to the fuselage. It is a builtin design feature and cannot be changed by the pilot during flight, unlike the angle of attack.
+
+            Aircraft Stability:
+                Longitudinal Stability: Refers to the aircraft's stability around the lateral axis (pitch). It is the tendency of the aircraft to resist pitching up or down and to return to a level flight attitude on its own after a disturbance.
+
+            Center of Gravity (CG):
+                The point where the aircraft would balance if suspended. It is a critical factor for stability and control.
+                Effect of Aft CG: If the CG is too far aft (rearward), the aircraft becomes unstable and can be extremely difficult or impossible to recover from a stall, potentially leading to a flat spin. This is a very dangerous condition.
+
+            Pfactor (Asymmetric Thrust):
+                A tendency for the aircraft to yaw to the left (in most American engines with clockwise propeller rotation when viewed from the cockpit) at high power settings and high angles of attack. This is because the descending propeller blade on the right produces more thrust than the ascending blade on the left.
+
+            Trim Tabs:
+                Small, adjustable surfaces on the trailing edge of main control surfaces (like the elevator).
+                Their purpose is to relieve control pressures and reduce pilot fatigue by allowing the pilot to "trim" the aircraft to maintain a desired attitude without constant stick pressure.
+
+            Canard Design:
+                A type of aircraft configuration that features the horizontal stabilizer at the front of the aircraft, ahead of the main wing.
+
+            Spin:
+                An aggravated stall that results in autorotation. It occurs when one wing stalls more deeply than the other, causing the aircraft to descend in a corkscrew path.
+                Recovery requires a specific control sequence, and spins are extremely dangerous, especially at low altitudes.
+
+            Effects of Frost on Wings:
+                Even a thin layer of frost disrupts the smooth flow of air over the wings, significantly reducing lift and increasing the stall speed.
+                Frost must be completely removed from the wings and control surfaces before flight, as it can prevent the aircraft from becoming airborne or cause an unexpected stall.
+
+            Bernoulli's Principle:
+                A fundamental principle of aerodynamics stating that the pressure of a fluid (like air) decreases as its speed increases.
+                This principle explains how lift is generated: air flowing over the curved upper surface of a wing travels faster than the air below it, creating lower pressure on top and a higher pressure below, resulting in an upward lifting force.
+
+            Center of Pressure (CP):
+                The average point where the total aerodynamic lifting force acts on the wing.
+                As the angle of attack increases (up to the point of stall), the center of pressure tends to move forward along the wing's chord line.
+
+            Dihedral:
+                The upward angle of the wings from the wing root to the tip when viewed from the front.
+                Dihedral increases lateral (roll) stability. If a wing drops, the dihedral causes it to generate more lift than the opposite wing, helping to naturally level the aircraft.
+
+            Best Glide Speed (L/D max):
+                The airspeed that provides the greatest forward distance for a given loss of altitude. It occurs at the maximum lifttodrag ratio (L/D).
+                This is the most important speed to know and maintain during an engine failure or power loss to maximize gliding range.
+
+            Winglets:
+                Vertical extensions at the wingtip.
+                Their purpose is to reduce induced drag by disrupting the formation of strong wingtip vortices, which makes the wing more aerodynamically efficient, especially at higher altitudes and during long flights.
         """)),
         "Ultralight Systems and Preflight": textwrap.dedent(app_instance.study_topics_content["Ultralight Systems and Preflight"].replace("...", """
-            You are the pilot AND the mechanic. A meticulous preflight inspection is your most important safety check.
+            As an ultralight pilot, you are often both the pilot and the primary mechanic. A thorough, methodical preflight inspection is the single most important action you can take to ensure a safe flight. Complacency and rushing are direct threats to safety; a diligent inspection is your first line of defense.
 
-            Develop a Flow:
-            Create a consistent, logical flow for your walk-around inspection. Start at the same place and go in the same direction every time so you don't miss anything. A common method is to start at the cockpit and work your way around the aircraft.
+            Develop a Consistent Flow:
+            Always perform your preflight inspection using a consistent, physical flow. Start at the same point and walk in the same direction every time (e.g., starting at the cockpit and moving counterclockwise). This builds a habit that significantly reduces the chance of forgetting a critical item.
 
-            Key Inspection Areas (Example for a 3-axis Ultralight):
-            1.  Cockpit: Master switch off, check controls for full and free movement, check fuel quantity.
-            2.  Fuselage: Inspect the frame for cracks, dents, or loose bolts/rivets, especially around joints and high-stress areas.
-            3.  Empennage (Tail): Check the vertical and horizontal stabilizers. Wiggle them to check for security. Check rudder and elevator hinges, control cables, and connections.
-            4.  Right Wing: Walk the leading edge, checking the fabric/surface for tears or damage. Check the wing struts and their attachment points (very critical!). Check the aileron for free movement and secure hinges.
-            5.  Engine & Propeller (The "Powerplant"):
-                - Propeller: Check for nicks, cracks, and security. A small nick can turn into a crack and cause a catastrophic blade failure.
-                - Spinner: Check for cracks and security.
-                - Engine: Check for oil or fuel leaks. Check spark plug wires for security. Check engine mounts for cracks (very common failure point!). Check exhaust system for cracks. Check fluid levels.
-                - Fuel System: Check fuel lines for brittleness or leaks. Check fuel filter for contaminants. Ensure fuel cap is secure.
-            6.  Landing Gear: Check tires for proper inflation and wear. Check axles, struts, and brakes (if equipped) for damage or leaks.
-            7.  Left Wing: Repeat the same inspection as the right wing.
+            Key Inspection Areas & Concepts:
 
-            Never rush a preflight. If you find something wrong, do not fly until it is properly fixed.
+            Cockpit & Cabin:
+                Restraint System: Check your harness or seatbelt. Look for wear, fraying on the webbing, and ensure the latching mechanism works perfectly. This is your primary protection in an emergency.
+                Controls: Check for free and correct movement. This is a twopart check:
+                    Free: Move the stick/yoke and rudder pedals through their full range of motion. They should feel smooth, not "gritty" or "notchy," which could indicate a frayed cable or failing bearing.
+                    Correct (Continuity): As you move a control, visually confirm the corresponding surface moves in the correct direction (e.g., stick left makes left aileron go up, stick back makes elevator go up).
+                Instruments: If equipped, check that instruments are serviceable. If the altimeter is adjustable, set it to the known field elevation for accurate readings. If you have an airspeed indicator, ensure the pitot tube cover is removed.
+                Ballistic Parachute: If equipped, ensure the safety pin is removed before flight and the activation handle is clear and unobstructed.
+            Fuel Quantity: Know your fuel level and ensure you have enough for the planned flight plus a safe reserve to prevent fuel exhaustion.
+
+            Fuselage & Empennage (Tail):
+                Structure: Inspect the airframe for cracks, dents, loose bolts, or working rivets. Pay special attention to joints, fittings, and highstress areas like engine mounts.
+                Surfaces: Wiggle the wings and tail surfaces. There should be no excessive play or clunking sounds, which could indicate structural looseness, bearing wear, or failed attachment points.
+                Fabric/Skin: Inspect the covering for tears, punctures, brittleness, or detachment. Damage can disrupt airflow and compromise structural integrity.
+
+            Powerplant (Engine & Propeller):
+                Propeller: This is a highlystressed airfoil. Meticulously inspect blades and spinner for nicks, gouges, cracks, security, and delamination. A small nick creates a stress riser that can propagate into a catastrophic blade failure in flight.
+                Engine Mounts: This is a critical, highvibration area. Inspect the mounts carefully for any cracks. A failed mount can lead to engine separation.
+                Fluid Leaks: Look for any puddles on the ground or residue on the engine. Any oil, fuel, or coolant leak must be found and fixed before flight.
+                Exhaust System: Check for cracks and security. A leaking exhaust poses a severe fire hazard from hot gases blowing on flammable parts and can introduce deadly carbon monoxide into the cockpit.
+                Hoses & Lines: Check fuel and oil lines for security, brittleness, and chafing (rubbing), which can wear a hole and cause a leak.
+                Security & Debris: Check that spark plug wires are secure. Look inside the cowling for foreign objects, especially bird's nests, which are a fire hazard and may hide damage to wires or lines. Remove them completely and inspect the area.
+
+            Fuel System:
+                Fuel Sample: Before the first flight of the day, take a fuel sample from the lowest point of the system (sump drain). Check the sample in a clear container for water (which will appear as a clear bubble at the bottom) and sediment. Continue draining until the sample is clean.
+                Filter: Check the fuel filter bowl for sludge or debris, which indicates contamination.
+                Fuel Cap: After checking fuel levels, ensure the fuel cap is secure. A loose cap can allow fuel to siphon out in flight and allow water or debris to enter the tank.
+
+
+            Landing Gear:
+                Tires: Check for proper inflation to the manufacturer's recommended pressure. Inspect for wear, damage, or flat spots, which indicate abnormal wear and increase the risk of a blowout.
+                Gear Assembly: Check struts, axles, and attachment points for damage or cracks.
+                Brakes: If equipped, check for brake fluid leaks and ensure you have firm pedal or lever pressure.
+
+            The Final Action: Don't Fly With a Problem
+            * If you find a problem—even a single missing "noncritical" bolt on a fairing—it must be fixed before flight. A seemingly minor part can detach and strike a critical component like the propeller or a control surface. Ground the aircraft until it is properly repaired by a qualified person.
+            * After your detailed inspection is complete, perform one final walkaround from a distance. This "big picture" view helps you spot anything you missed, like a forgotten fuel cap, pitot cover, or a tool left on a wing.
         """)),
         "Navigation and Sectional Charts": textwrap.dedent(app_instance.study_topics_content["Navigation and Sectional Charts"].replace("...", """
-            Even though most ultralight flights are local, basic navigation skills are essential for safety and for staying out of trouble (i.e., controlled airspace).
+        Navigation and Sectional Charts:
 
-            Reading a VFR Sectional Chart:
-            A sectional chart is your map of the sky. You must learn to identify key features:
-            - Airports: Blue circles are airports with control towers; magenta circles are non-towered.
-            - Airspace: As covered in the Airspace topic, learn to identify the boundaries of Class B, C, D, and E airspace.
-            - Obstructions: Symbols indicate the location and height (in MSL and AGL) of towers and other tall obstacles.
-            - Terrain: Colors and contour lines show elevation.
-            - Maximum Elevation Figures (MEF): The large numbers in each quadrant show the height of the highest obstacle (or terrain) in that area, rounded up. This gives you a quick reference for a safe minimum altitude.
+        Even though most ultralight flights are local, strong navigation skills are fundamental for safety, preventing airspace incursions, and handling unexpected situations. This involves understanding your sectional chart, mastering basic navigation techniques, and knowing what to do if you get lost.
 
-            Pilotage and Dead Reckoning:
-            - Pilotage: This is the primary method for VFR navigation. It involves flying by reference to landmarks on the ground (roads, rivers, towns, lakes) and comparing them to what you see on your sectional chart.
-            - Dead Reckoning: This involves calculating your heading and time to a destination based on a known starting point, your planned airspeed, and forecast winds. It's a good backup skill but requires more planning.
+        Reading a VFR Sectional Chart:
+            A sectional chart is your map of the sky. It's crucial to understand its symbols to navigate effectively and safely.
+            Airports: Airports with control towers are shown in blue, while nontowered airports are in magenta. A star symbol on top of the airport indicates a rotating beacon that operates from sunset to sunrise. A circled "L" next to the airport name signifies pilotcontrolled lighting.
 
-            Using GPS:
-            - GPS is an excellent tool for situational awareness, but it should not be your only means of navigation.
-            - Batteries can die, and signals can be lost. Always have your sectional chart and the ability to use pilotage as a backup.
-            - A key benefit of GPS is its ability to clearly show your position relative to airspace boundaries. Use this feature to stay clear of controlled airspace.
+        Airspace:
 
-            Lost Procedures (The 5 Cs):
-            If you become lost:
-            1.  Climb: To get a better view and improve radio/GPS reception (while staying VFR).
-            2.  Circle: To avoid flying further into an unknown area.
-            3.  Conserve: Reduce power to save fuel.
-            4.  Communicate: If you have a radio, call for help on the universal emergency frequency 121.5 MHz.
-            5.  Confess: Admit you are lost and need help. Don't let pride lead to a worse situation.
+        Class C Airspace: Depicted by solid magenta lines.
+        Class D Airspace: Depicted by dashed blue lines.
+        Class E Airspace: A shaded blue vignette indicates that the floor of Class E airspace begins at 1,200 feet AGL.
+
+        Obstructions: Towers and other tall obstacles are marked with symbols showing their height. The number on top is the height above Mean Sea Level (MSL), and the number in parentheses is the height Above Ground Level (AGL). For example, 1549 (449) means the top of the obstacle is 1,549 feet MSL and it rises 449 feet above the ground.
+
+        Terrain and Elevation:
+            Contour Lines: These lines connect points of equal elevation and show the shape of the terrain. Lines that are close together indicate steep terrain.
+            Maximum Elevation Figure (MEF): The large number in a quadrant (e.g., '4⁵') represents the MEF. This is the height of the highest terrain or obstacle in that grid in MSL, rounded up to the next 100 feet, giving you a quick reference for a safe minimum altitude in that area.
+
+        Navigation and Communication:
+            Frequencies: "CT  118.3" indicates the Control Tower frequency is 118.3 MHz. A frequency with a "C" in a solid blue circle denotes the Common Traffic Advisory Frequency (CTAF).
+            VOR: A VOR (VHF Omnidirectional Range) is a groundbased radio navigation aid shown as a large compass rose on the chart.
+            ADIZ: An Air Defense Identification Zone, shown by a line of blue tick marks with arrows, requires aircraft to be identified and controlled for national security.
+
+        Navigation Techniques:
+            Pilotage: This is the primary method for VFR navigation. It involves looking out the window and comparing prominent landmarks on the ground—such as roads, rivers, and towns—with their depiction on your sectional chart. For best results, orient your chart to align with the landmarks you see on the ground.
+            Dead Reckoning: This is the process of calculating your position by using a known starting point, your heading, airspeed, and elapsed time. It is especially useful when flying over featureless areas with few landmarks.
+            Magnetic Variation: Since your compass points to Magnetic North, not True North, you must account for the difference, which is called magnetic variation. This is shown by dashed magenta lines (isogonic lines) on your chart.
+            "East is least": Subtract an easterly variation when converting from a true course to a magnetic course.
+            "West is best": Add a westerly variation when converting from a true course to a magnetic course.
+
+        Best Practices:
+            Use Current Charts: Airspace boundaries, obstacles, and frequencies can change. Using an outofdate chart is a significant safety hazard.
+            Track Your Progress: On a crosscountry flight, use a flight timer and mark your position on the chart every 1015 minutes. This helps you notice if you are drifting off course and allows you to make corrections early.
+            Look Around: Identify prominent landmarks both ahead of and behind your aircraft. This helps confirm your position and makes it easier to turn back if you encounter bad weather or other problems.
+
+        Using GPS:
+            Situational Awareness: GPS is an excellent tool for realtime situational awareness, especially for identifying your position relative to airspace boundaries.
+            Don't Rely on it Solely: Technology can fail due to signal loss, battery failure, or database errors. Always maintain proficiency in pilotage and dead reckoning and have a current sectional chart as a backup.
+
+        Lost Procedures (The 5 Cs):
+        If you become lost and disoriented, remember the "Five Cs" in this order:
+            Climb: Climbing (while remaining VFR) gives you a better view to spot landmarks and improves reception for radios and GPS.
+            Circle: Avoid flying further into an unknown area while you get your bearings.
+            Conserve: Reduce power to save fuel while you assess the situation.
+            Communicate: If you have a radio and cannot reorient yourself, call for help. The universal emergency frequency is 121.5 MHz.
+            Confess: Admit to yourself that you are lost and need help. Do not let pride or embarrassment prevent you from using available resources, like ATC, to get found.
         """)),
         "Airport Operations and Markings": textwrap.dedent(app_instance.study_topics_content["Airport Operations and Markings"].replace("...", """
-            Even if you fly from a private field, you may one day need to use a public airport. Understanding airport operations is key to safety and being a good neighbor in the aviation community. Most ultralights will operate from non-towered airports.
+        Airport Operations and Markings: A Pilot's Guide
+        A comprehensive understanding of airport operations and markings is fundamental for all pilots, ensuring safety and efficiency both on the ground and in the air. Even for those accustomed to private airfields, familiarity with the procedures at public airports is essential for seamless integration into the aviation community. The majority of ultralight operations will take place at nontowered airports, which have their own unique set of procedures.
 
-            Non-Towered Airport Procedures:
-            - At an airport without a control tower, pilots are responsible for coordinating their arrivals and departures.
-            - While radios are not required for Part 103, using a handheld aviation radio is a highly recommended safety practice. Announce your position and intentions on the airport's Common Traffic Advisory Frequency (CTAF).
-            - Standard Traffic Pattern: The standard pattern is a left-hand traffic pattern (all turns are to the left). The standard altitude is 1,000 feet above the airport elevation (AGL), but ultralights often fly a lower pattern (e.g., 500 feet AGL) to stay clear of faster traffic. Always check the airport's specific procedures.
+        NonTowered Airport Procedures:
+        At airports without an operating control tower, pilots are responsible for selfcoordination of arrivals and departures. This requires a heightened sense of situational awareness and clear communication.
 
-            Key Airport Markings:
-            - Runway Numbers: The number indicates the runway's magnetic alignment, rounded to the nearest 10 degrees with the last zero omitted. Runway "09" is aligned to 090 degrees (East), and Runway "27" is aligned to 270 degrees (West).
-            - Displaced Threshold: White arrows pointing to a thick white line across the runway indicate a displaced threshold. You can use this area for takeoff and taxi, but NOT for landing. This is usually done to provide obstacle clearance on approach.
-            - Segmented Circle: This visual indicator system provides traffic pattern information. A wind cone in the center shows wind direction. L-shaped indicators show the direction of the traffic pattern (e.g., pointing away from the runway for a right-hand pattern).
-            - Wind Sock/Cone: A simple, reliable indicator of wind direction and general speed. A fully extended sock indicates a strong wind (approx. 15 knots or more). A limp sock means calm winds.
+            Radio Communication: While not mandated by Part 103, the use of a handheld aviation radio is a crucial safety measure. Pilots should announce their position and intentions on the airport's Common Traffic Advisory Frequency (CTAF). UNICOM is a nongovernment air/ground communication station that can provide airport information like wind conditions or active runways.
+            Traffic Pattern: The standard traffic pattern at U.S. airports involves lefthand turns, unless otherwise indicated by visual aids. A standard traffic pattern altitude for general aviation is 1,000 feet above ground level (AGL), though ultralights may fly a lower pattern (e.g., 500 feet AGL) to maintain separation from faster aircraft. Always consult airportspecific information for any variations.
+
+        Understanding the Traffic Pattern:
+        The traffic pattern is a standardized rectangular flight path around an airport. It consists of several distinct legs:
+
+            Upwind Leg: The initial flight path after takeoff, aligned with the runway and flown into the wind.
+            Crosswind Leg: A 90degree turn from the upwind leg.
+            Downwind Leg: Flown parallel to the runway in the opposite direction of landing. Prelanding checks are typically performed on this leg.
+            Base Leg: A 90degree turn from the downwind leg, perpendicular to the runway.
+            Final Approach: The last leg, aligned with the runway for landing.
+
+        The recommended entry to a standard traffic pattern is at a 45degree angle to the downwind leg, at the designated pattern altitude. Pilots should make their first turn from the upwind leg after reaching a safe altitude and being beyond the departure end of the runway.
+
+        Airport Markings and Signs:
+        Airport markings and signs provide critical information to pilots for safe navigation on the ground. Runway markings are white, while taxiway and holding position markings are yellow.
+
+            Runway Numbers: These numbers indicate the runway's magnetic alignment, rounded to the nearest 10 degrees with the last zero omitted. For example, a runway aligned with a magnetic heading of 360 degrees is designated as Runway 36.
+            Displaced Threshold: A displaced threshold, marked with white arrows leading to a solid white line, indicates a portion of the runway that can be used for taxiing and takeoff but not for landing. This is often implemented to provide obstacle clearance for approaching aircraft.
+            Hold Short Lines: These consist of two solid and two dashed yellow lines across a taxiway, indicating the position where an aircraft must stop before entering a runway.
+            Closed Runway: A large "X" painted on a runway indicates that it is closed to all operations.
+
+        Airport Signs are categorized by their color and provide essential instructions and information:
+
+            Mandatory Instruction Signs: Red background with white inscriptions. These signs indicate an entrance to a runway or other critical area where pilots must hold short and await clearance from Air Traffic Control (at a towered airport) or ensure the area is clear (at a nontowered airport).
+            Location Signs: Black background with yellow inscriptions. These signs identify the taxiway or runway the aircraft is currently on.
+            Direction/Destination Signs: Yellow background with black inscriptions. These signs indicate the direction of other taxiways, runways, or airport services.
+
+        Visual Aids and Lighting:
+        Visual aids and lighting systems are crucial for safe operations, especially at night or in lowvisibility conditions.
+
+            Windsocks, Wind Tees, and Tetrahedrons: These are wind direction indicators. A fully extended windsock suggests a strong wind of 15 knots or more. A wind tee points into the wind, indicating the direction for takeoff and landing. A tetrahedron also points in the direction of landing and takeoff.
+            Segmented Circle: This is a visual indicator system at nontowered airports. It often contains a windsock or tetrahedron and Lshaped indicators that show the direction of the traffic pattern.
+            VASI/PAPI Lights: Visual Approach Slope Indicator (VASI) and Precision Approach Path Indicator (PAPI) are lighting systems that provide visual glideslope guidance for landing.
+            Rotating Beacons: An airport's rotating beacon helps pilots identify the type of airport at night. Alternating white and green flashes indicate a lighted land airport.
+            Runway and Taxiway Lighting: Runway edge lights are white, while taxiway edge lights are blue. Runway threshold lights are green at the approach end and red at the departure end.
+
+        Special Operations:
+            Runway Incursion Hot Spots: These are areas on an airport with a history or potential for collisions or runway incursions. They are marked on airport diagrams and require heightened pilot vigilance.
+            LAHSO (Land and Hold Short Operation): A procedure at towered airports where an aircraft is cleared to land and hold short of an intersecting runway. Ultralight pilots are generally not expected to participate in LAHSO.
         """)),
         "Emergency Procedures": textwrap.dedent(app_instance.study_topics_content["Emergency Procedures"].replace("...", """
-            An emergency is any situation that threatens the safety of your flight. The key is to have a plan and fly the aircraft first. Always remember: Aviate, Navigate, Communicate.
+            "Emergency Procedures": An emergency is any situation that threatens the safety of your flight. The key is to have a plan and fly the aircraft first. Always remember: Aviate, Navigate, Communicate.
 
-            1. Aviate: Fly the aircraft! This is the absolute first priority. Maintain control. In case of engine failure, this means immediately establishing your best glide speed to maximize the distance you can travel without power.
-            2. Navigate: Direct the aircraft toward a safe landing area.
-            3. Communicate: If you have a radio and time permits, declare an emergency.
+            Aviate: Fly the aircraft! This is the absolute first priority. Maintain control. In case of engine failure, this means immediately establishing your best glide speed to maximize the distance you can travel without power.
+            Navigate: Once the aircraft is under control, direct the aircraft toward a safe landing area.
+            Communicate: If you have a radio and time permits, declare an emergency. Only after the first two steps are stable should you communicate.
 
-            Engine Failure: The most common emergency.
-            - Engine Failure on Takeoff: This is the most critical.
-              - If you have sufficient runway remaining: Land straight ahead on the runway.
-              - If you are airborne but at low altitude (e.g., below 500 feet): DO NOT ATTEMPT TO TURN BACK. This is the "impossible turn" that has caused many fatal accidents. The steep bank required at low speed can lead to a stall/spin. Your only option is to land mostly straight ahead, selecting the best available field and avoiding major obstacles.
-            - Engine Failure in Flight (at altitude):
-              - A: Airspeed. Establish best glide speed immediately.
-              - B: Best Field. Pick the best landing spot within gliding distance. Turn towards it.
-              - C: Checklist. If time permits, attempt a restart (check fuel, ignition, etc.).
-              - D: Declare. Announce "Mayday, Mayday, Mayday" on 121.5 MHz if you have a radio.
-              - E: Execute. Perform the emergency landing. Try to land into the wind.
+            Engine Failure:
 
-            In-Flight Fire:
-            - Electrical Fire: Master switch OFF. Close vents. Use fire extinguisher if available.
-            - Engine Fire: Turn fuel selector OFF. Master switch OFF. Establish a steep dive to try and extinguish the flames. Do not attempt to restart the engine. Execute an emergency landing immediately.
+            Engine Failure on Takeoff: This is a critical emergency.
 
+            If you have sufficient runway remaining, land straight ahead.
+            If you are airborne but at a low altitude, a turn back to the airport should not be attempted unless you have the proper altitude, as it can lead to a stall or spin. The safest option is often to land straight ahead, choosing the best available landing site.
+
+            Engine Failure in Flight (at altitude):
+
+            A: Airspeed. Establish best glide speed immediately.
+            B: Best Field. Pick the best landing spot within gliding distance and turn towards it.
+            C: Checklist. If time and altitude permit, attempt a restart (e.g., check fuel selector, magnetos, primer).
+            D: Declare. Announce "Mayday, Mayday, Mayday" on the radio.
+            E: Execute. Perform the emergency landing, landing into the wind if possible.
+
+            InFlight Fire:
+
+            Electrical Fire: The first indication is often the smell of burning insulation.
+            Turn off the master switch and all electrical equipment to remove the source of the fire.
+            Close cabin vents to avoid fanning the flames.
+            Use a fire extinguisher if available.
+            Once the fire is out, you can consider restoring power to essential equipment, but be cautious as this may reignite the fire. Land as soon as possible.
+
+            Engine Fire:
+
+            The immediate action is to shut off the fuel supply to the engine. Set the fuel selector and mixture to OFF.
+            Turn off the master switch.
+            If the fire persists, you may need to establish a steep dive to try and extinguish the flames. Do not attempt to restart the engine.
+            Execute an emergency landing immediately.
             Control System Failure:
-            - If a control surface becomes jammed, use the remaining controls to maintain flight. You may need to use power and pitch trim to control airspeed and altitude. Find the largest, most suitable landing area possible.
+
+            If a primary flight control becomes jammed, use the remaining controls to maintain flight.
+            Power and trim adjustments can be used to control pitch. Adding power will generally cause the nose to pitch up, while reducing power will cause it to pitch down.
+            If you have a flight control malfunction, it's important to perform a controllability check at a safe altitude to determine how the aircraft handles at different speeds and configurations before attempting a landing.
+            For landing, a long, flat approach may be necessary, and you should choose the longest available runway.
         """)),
         "Human Factors (ADM & IMSAFE)": textwrap.dedent(app_instance.study_topics_content["Human Factors (ADM & IMSAFE)"].replace("...", """
-            Human factors are the single largest contributor to aviation accidents. You, the pilot, are the most critical component of the flight system. Understanding your own limitations is as important as knowing the aircraft's limitations.
-
             Aeronautical Decision Making (ADM):
-            ADM is a systematic approach to risk assessment and stress management. A good framework for this is the PAVE checklist. Before every flight, assess the:
-            - P: Pilot. Are you fit to fly? (Use the IMSAFE checklist).
-            - A: Aircraft. Is the aircraft airworthy? Has a thorough preflight been done? Is there enough fuel?
-            - V: enVironment. What is the weather like now and forecast to be? What about airspace and terrain?
-            - E: External Pressures. Are you feeling rushed? Are you trying to meet someone or get to an event? These pressures lead to bad decisions. Be strong enough to say "no" and cancel or delay a flight.
+            ADM is a systematic approach for risk assessment and stress management to help pilots consistently identify hazards, assess risk, and make safe decisions. A good framework for this is the PAVE checklist. Before every flight, assess the:
+                P: Pilot. Are you fit to fly? This starts with a personal assessment using the IMSAFE checklist.
+                A: Aircraft. Is the aircraft airworthy? Has a thorough preflight been done? Is there enough fuel, and is the aircraft's performance appropriate for the planned flight?
+                V: enVironment. What is the weather like now and what is it forecast to be? Consider all environmental factors, including terrain, airspace, and time of day.
+                E: External Pressures. Are you feeling rushed or experiencing pressure to get to an event? This pressure, often called "getthereitis," can lead to poor decisions. Other examples include peer pressure to fly beyond your limits or falling for the "sunk cost fallacy" (continuing a flight into danger just because you've already started). The best way to mitigate these risks is to establish personal minimums and be prepared to delay or cancel the flight if conditions are not safe.
 
             The IMSAFE Checklist:
             A personal health checklist to determine your fitness to fly.
-            - I: Illness. Are you feeling sick?
-            - M: Medication. Are you taking any prescription or over-the-counter drugs?
-            - S: Stress. Are you dealing with work, family, or financial stress?
-            - A: Alcohol. Regulations require 8 hours from "bottle to throttle," but effects can last longer.
-            - F: Fatigue. Are you tired or have you had enough restful sleep? Fatigue is a major cause of poor judgment.
-            - E: Emotion / Eating. Are you emotionally upset? Are you properly hydrated and nourished?
+                I: Illness. Are you feeling sick? Even a minor cold can affect your ability to fly safely.
+                M: Medication. Are you taking any prescription or overthecounter drugs? Be aware of potential side effects, especially drowsiness.
+                S: Stress. Are you dealing with work, family, or financial stress? While a small amount of stress can be focusing, high stress levels degrade performance and decisionmaking significantly.
+                A: Alcohol. Regulations require 8 hours from "bottle to throttle," but the effects of alcohol can last much longer.
+                F: Fatigue. Are you tired? Fatigue is a dangerous condition, as it significantly impairs judgment, reaction time, and decisionmaking skills.
+                E: Emotion / Eating. Are you emotionally upset, angry, or anxious? Are you properly nourished and hydrated? Dehydration can cause fatigue, headaches, and impaired judgment.
 
-            Hazardous Attitudes:
-            All pilots must be aware of five hazardous attitudes that can lead to poor decisions.
-            1. Anti-Authority ("Don't tell me."): Resenting rules and regulations.
-            2. Impulsivity ("Do it quickly."): Feeling the need to do something, anything, immediately.
+            Hazardous Attitudes and Their Antidotes:
+            All pilots must be aware of five hazardous attitudes that can lead to poor decisions. The key to combating them is selfawareness and consciously using the correct antidote.
+            1. AntiAuthority ("Don't tell me."): Resenting rules and regulations.
+                Antidote: Follow the rules. They are usually right.
+            2. Impulsivity ("Do it quickly."): Feeling the need to do something, anything, immediately, without thinking it through.
+                Antidote: Not so fast. Think first.
             3. Invulnerability ("It won't happen to me."): Believing accidents only happen to other people.
-            4. Macho ("I can do it."): Trying to prove you are better than others by taking risks.
-            5. Resignation ("What's the use?"): Feeling that you are not in control of a situation.
+                Antidote: It could happen to me.
+            4. Macho ("I can do it."): Trying to prove you are better than others by taking unnecessary risks.
+                Antidote: Taking chances is foolish.
+            5. Resignation ("What's the use?"): Feeling that you are not in control of a situation and that the outcome is inevitable.
+                Antidote: I'm not helpless. I can make a difference.
+
+            Other Important Human Factors:
+                Hypoxia: This is a state of oxygen deficiency in the body which can severely impair brain function, vision, and coordination. It is a critical risk, especially at higher altitudes.
         """))
     }
     app_instance.study_topics_content = full_content
