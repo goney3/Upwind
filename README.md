@@ -47,6 +47,7 @@ No installation is required to use this application.
 
 ## Disclaimer
 
+Programmed mainly with Google AI Studio.
 Use at your own risk! This work is dedicated to the Public Domain. Fly Safe!
 
 ## Contributions Welcome!
