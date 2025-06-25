@@ -12,8 +12,8 @@ offering study topics covering regulations, flight environment, aircraft systems
 It also includes a robust quiz engine with over 300 questions to test knowledge.
 The application incorporates custom SVG rendering for its logo and a detailed airspace graphic for educational purposes.
 
-Version: 1.0.3
-Date: June 20, 2025
+Version: 1.0.4
+Date: June 25, 2025
 Author: Keith F. - Ultralight Airplane Workshop
 License: Dedicated to the Public Domain. Use at own risk! No Rights Reserved.
 
@@ -531,19 +531,30 @@ class UltralightGroundSchoolApp:
             self.feedback_label.config(text="Please select an answer before proceeding.", fg='yellow')
 
     def show_results(self):
-        if self.current_question_index < len(self.quiz_questions):
-            self.user_answers[self.current_question_index] = self.radio_var.get()
+        if self.current_question_index < len(self.quiz_questions): # Save answer for the last question
+            selected_answer = self.radio_var.get()
+            self.user_answers[self.current_question_index] = selected_answer if selected_answer else "No answer"
+
         self._clear_container()
         
         score = 0
         wrong_answers = []
+        correctly_answered_questions = [] # New list for correct answers
+
+        # Populate wrong_answers and correctly_answered_questions lists
         for i, question_data in enumerate(self.quiz_questions):
-            if self.user_answers.get(i) == question_data['correct_answer']:
+            user_answer = self.user_answers.get(i) 
+            if user_answer == question_data['correct_answer']:
                 score += 1
+                correctly_answered_questions.append({
+                    "question": question_data['question_text'],
+                    "user_answer": user_answer, 
+                    "explanation": question_data['explanation']
+                })
             else:
                 wrong_answers.append({
                     "question": question_data['question_text'],
-                    "user_answer": self.user_answers.get(i, "No answer"),
+                    "user_answer": user_answer if user_answer is not None else "No answer",
                     "correct_answer": question_data['correct_answer'],
                     "explanation": question_data['explanation']
                 })
@@ -551,7 +562,7 @@ class UltralightGroundSchoolApp:
         Label(self.container, text="Quiz Results", font=self.header_font,
                  bg=self.dark_bg, fg=self.light_text).pack(pady=20)
 
-        score_percentage = (score / len(self.quiz_questions)) * 100
+        score_percentage = (score / len(self.quiz_questions)) * 100 if len(self.quiz_questions) > 0 else 0.0
         Label(self.container, text=f"You scored: {score}/{len(self.quiz_questions)} ({score_percentage:.2f}%)",
                  font=("Helvetica", 18), bg=self.dark_bg, fg=self.light_text).pack(pady=10)
 
@@ -559,19 +570,46 @@ class UltralightGroundSchoolApp:
                                                       font=self.body_font, relief="flat", borderwidth=0, padx=15, pady=15)
         results_text_area.pack(pady=10, padx=50, fill="both", expand=True)
 
-        if not wrong_answers:
-            results_text_area.insert(tk.INSERT, "Excellent! You got all questions correct. You have a strong understanding of FAR Part 103.\n")
-        else:
-            results_text_area.insert(tk.INSERT, "Review of Incorrect Answers:\n\n")
-            for item in wrong_answers:
-                results_text_area.insert(tk.INSERT, f"Q: {item['question']}\n\n")
-                results_text_area.insert(tk.INSERT, f"  Your Answer: {item['user_answer']}\n", 'wrong')
-                results_text_area.insert(tk.INSERT, f"  Correct Answer: {item['correct_answer']}\n\n", 'correct')
-                wrapped_explanation = '\n'.join(textwrap.wrap(f"Explanation: {item['explanation']}", width=80))
-                results_text_area.insert(tk.INSERT, f"{wrapped_explanation}\n\n" + "-"*80 + "\n\n")
-        
+        # Define all tags first
         results_text_area.tag_config('correct', foreground='#4CAF50', font=(self.body_font[0], self.body_font[1], "bold"))
         results_text_area.tag_config('wrong', foreground='#F44336', font=(self.body_font[0], self.body_font[1], "bold"))
+        results_text_area.tag_config('correct_answered_text', foreground='#2E8B57', font=(self.body_font[0], self.body_font[1], "normal")) 
+        results_text_area.tag_config('question_text_style', font=(self.body_font[0], self.body_font[1], "bold")) 
+        results_text_area.tag_config('section_title_style', font=(self.body_font[0], int(self.body_font[1] * 1.1), "bold"), spacing1=10, spacing3=10)
+
+        # Display logic
+        quiz_had_questions = len(self.quiz_questions) > 0
+        all_questions_correct = quiz_had_questions and not wrong_answers and score == len(self.quiz_questions)
+
+        if not quiz_had_questions:
+            results_text_area.insert(tk.INSERT, "There were no questions in this quiz.\n")
+        else:
+            if all_questions_correct:
+                results_text_area.insert(tk.INSERT, "Excellent! You got all questions correct.\n\n", 'section_title_style')
+                results_text_area.insert(tk.INSERT, "Review of Your Answers:\n\n", 'section_title_style')
+                for item in correctly_answered_questions:
+                    results_text_area.insert(tk.INSERT, f"Q: {item['question']}\n\n", 'question_text_style')
+                    results_text_area.insert(tk.INSERT, f"  Your Answer: {item['user_answer']}\n", 'correct_answered_text')
+                    wrapped_explanation = '\n'.join(textwrap.wrap(f"Explanation: {item['explanation']}", width=80))
+                    results_text_area.insert(tk.INSERT, f"{wrapped_explanation}\n\n" + "-"*80 + "\n\n")
+            else:
+                if wrong_answers:
+                    results_text_area.insert(tk.INSERT, "Review of Incorrect Answers:\n\n", 'section_title_style')
+                    for item in wrong_answers:
+                        results_text_area.insert(tk.INSERT, f"Q: {item['question']}\n\n", 'question_text_style')
+                        results_text_area.insert(tk.INSERT, f"  Your Answer: {item['user_answer']}\n", 'wrong')
+                        results_text_area.insert(tk.INSERT, f"  Correct Answer: {item['correct_answer']}\n\n", 'correct')
+                        wrapped_explanation = '\n'.join(textwrap.wrap(f"Explanation: {item['explanation']}", width=80))
+                        results_text_area.insert(tk.INSERT, f"{wrapped_explanation}\n\n" + "-"*80 + "\n\n")
+
+                if correctly_answered_questions:
+                    results_text_area.insert(tk.INSERT, "\n\nReview of Correctly Answered Questions:\n\n", 'section_title_style')
+                    for item in correctly_answered_questions:
+                        results_text_area.insert(tk.INSERT, f"Q: {item['question']}\n\n", 'question_text_style')
+                        results_text_area.insert(tk.INSERT, f"  Your Answer: {item['user_answer']}\n\n", 'correct_answered_text')
+                        wrapped_explanation = '\n'.join(textwrap.wrap(f"Explanation: {item['explanation']}", width=80))
+                        results_text_area.insert(tk.INSERT, f"{wrapped_explanation}\n\n" + "-"*80 + "\n\n")
+        
         results_text_area.config(state=tk.DISABLED)
 
         home_button = tk.Button(self.container, text="Return to Main Menu", command=self.show_main_menu,
