@@ -12,9 +12,9 @@ offering study topics covering regulations, flight environment, aircraft systems
 It also includes a robust quiz engine with over 300 questions to test knowledge.
 The application incorporates custom SVG rendering for its logo and a detailed airspace graphic for educational purposes.
 
-Version: 1.0.4
-Date: June 25, 2025
-Author: Keith F. - Ultralight Airplane Workshop
+Version: 1.0.5
+Date: July 03, 2025
+Author: Keith F. - ultralightairplaneworkshop.com
 License: Dedicated to the Public Domain. Use at own risk! No Rights Reserved.
 
 Dependencies:
@@ -35,7 +35,18 @@ import textwrap
 import re
 import math
 
-#  Canvas created Logo at the top of the app:
+# -----------------------------------------------------------------------------
+# SVG LOGO RENDERING FUNCTIONS
+# -----------------------------------------------------------------------------
+# The following block of functions is dedicated to parsing and rendering a
+# simplified version of an SVG (Scalable Vector Graphics) image onto a
+
+# Tkinter Canvas widget. This allows for a custom, scalable logo without
+# depending on external image files. It includes functions to parse SVG
+# path data, styles, and transformations, and to draw the resulting shapes
+# (circles, ellipses, paths) on the canvas.
+# -----------------------------------------------------------------------------
+
 def hex_to_rgb(hex_color):
     return hex_color
 
@@ -93,7 +104,6 @@ def parse_svg_path_d(d_string):
                 points.append((current_x, current_y))
     return points
 
-# --- Main Drawing Function ---
 def draw_svg_elements_on_tkinter(canvas, svg_elements_data, x_offset=0, y_offset=0):
     """
     Draws a list of simplified SVG elements onto a Tkinter Canvas,
@@ -134,7 +144,15 @@ def draw_svg_elements_on_tkinter(canvas, svg_elements_data, x_offset=0, y_offset
             if len(flat_coords) >= 4:
                 canvas.create_line(flat_coords, fill=stroke_color, width=stroke_width, joinstyle=tk.ROUND, capstyle=tk.ROUND)
 
-# --- SVG Data (for the actual application to import) ---
+# -----------------------------------------------------------------------------
+# SVG DATA
+# -----------------------------------------------------------------------------
+# This list contains the geometric data for the logo, extracted from an
+# SVG file. Each dictionary represents an SVG element ('circle', 'ellipse',
+# 'path') with its attributes, which the rendering functions above will use
+# to draw the logo.
+# -----------------------------------------------------------------------------
+
 svg_elements_data = [
     {'type':'circle','cx':'62.419357','cy':'65.758064','r':'7.5483871','style':'opacity:1;fill:#ffffff;stroke:none;stroke-width:0.514016'},
     {'type':'ellipse','cx':'-1.1778357','cy':'86.117943','rx':'34.085022','ry':'6.1921449','transform':'matrix(0.89688675,-0.44226029,0.44546856,0.89529758,0,0)','style':'opacity:1;fill:#ffffff;stroke:none;stroke-width:0.656621'},
@@ -161,7 +179,15 @@ svg_elements_data = [
     {'type':'path','d':'M 80.491934,41.570027 80.12903,38.303898','style':'fill:none;stroke:#ffffff;stroke-width:0.514016'},
 ]
 
-#  Start of the acutal Applicaiton:
+# -----------------------------------------------------------------------------
+# MAIN APPLICATION CLASS
+# -----------------------------------------------------------------------------
+# This class encapsulates the entire Tkinter application. It manages the main
+# window, defines UI styles, holds the application's state (like quiz
+# questions and study content), and contains the methods to display all the
+# different screens, such as the main menu, study pages, and the quiz.
+# -----------------------------------------------------------------------------
+
 class UltralightGroundSchoolApp:
     def __init__(self, master):
         self.master = master
@@ -237,6 +263,14 @@ class UltralightGroundSchoolApp:
 
         self.show_main_menu()
 
+# -----------------------------------------------------------------------------
+# UI NAVIGATION AND PAGE MANAGEMENT
+# -----------------------------------------------------------------------------
+# These methods control the user interface flow. They are responsible for
+# clearing the main window and drawing the content for the different views,
+# such as the main menu (with its categories and sub-topics) and the
+# individual, scrollable study pages for each topic.
+# -----------------------------------------------------------------------------
     def _clear_container(self):
         for widget in self.container.winfo_children():
             widget.destroy()
@@ -338,6 +372,19 @@ class UltralightGroundSchoolApp:
             canvas.configure(scrollregion=canvas.bbox("all"))
         scrollable_frame.bind("<Configure>", on_frame_configure)
 
+        # --- START: Added code for mouse wheel scrolling ---
+        def _on_mousewheel(event):
+            # The 'delta' attribute provides the scroll amount.
+            # It's divided by 120 because that's a standard single-tick value on Windows.
+            # The result is negated to match the scroll direction.
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        # Bind the mouse wheel event only when the cursor is over the canvas
+        canvas.bind('<Enter>', lambda _: canvas.bind_all('<MouseWheel>', _on_mousewheel))
+        # Unbind the event when the cursor leaves the canvas
+        canvas.bind('<Leave>', lambda _: canvas.unbind_all('<MouseWheel>'))
+        # --- END: Added code for mouse wheel scrolling ---
+
         # --- Add content to the scrollable frame ---
         Label(scrollable_frame, text=topic_title, font=self.header_font,
                  bg=self.dark_bg, fg=self.light_text).pack(pady=20, padx=30)
@@ -349,6 +396,15 @@ class UltralightGroundSchoolApp:
         if topic_title == "Airspace for Ultralights":
             self._create_airspace_graphic(scrollable_frame)
 
+# -----------------------------------------------------------------------------
+# AIRSPACE GRAPHIC GENERATION
+# -----------------------------------------------------------------------------
+# This section is responsible for programmatically drawing a detailed profile
+# view of the U.S. airspace classes onto a Tkinter Canvas. It uses helper
+# functions to draw geometric shapes (like cylinders for controlled airspace)
+# and places text labels to create an educational and visually informative
+# graphic for the "Airspace for Ultralights" study topic.
+# -----------------------------------------------------------------------------
     def _draw_cylinder(self, canvas, x_center, y_top, y_bottom, radius, dark_color, light_color):
         """Helper function to draw a 3D cylinder with a highlight."""
         # Main cylinder body
@@ -476,6 +532,15 @@ class UltralightGroundSchoolApp:
 
         canvas.create_text(canvas_width - 20, legend_y_start + 60, text="Airspace Volumes Not to Scale", font=self.fonts["legend_label"], anchor="e")
         
+# -----------------------------------------------------------------------------
+# QUIZ ENGINE LOGIC
+# -----------------------------------------------------------------------------
+# This block of methods implements the quiz functionality. It handles
+# selecting random questions, displaying them one by one, tracking user
+# answers, and finally, calculating and showing a detailed results page with
+# explanations for both correct and incorrect answers.
+# -----------------------------------------------------------------------------
+
     def start_quiz(self):
         self._clear_container()
         self.quiz_questions = random.sample(self.question_pool, 20)
@@ -615,6 +680,15 @@ class UltralightGroundSchoolApp:
         home_button = tk.Button(self.container, text="Return to Main Menu", command=self.show_main_menu,
                                 font=self.button_font, bg=self.accent_color, fg=self.light_text, relief="flat", width=25, height=2)
         home_button.pack(pady=20)
+
+# -----------------------------------------------------------------------------
+# DATA LOADING AND CONTENT MANAGEMENT
+# -----------------------------------------------------------------------------
+# These methods are responsible for loading the application's educational
+# content. They return the structured data for the study topic text and the
+# entire pool of quiz questions. In the initial script, the study content
+# is a placeholder, which is fully populated in the main execution block.
+# -----------------------------------------------------------------------------
 
     def _get_study_content(self):
         return {
@@ -954,6 +1028,16 @@ class UltralightGroundSchoolApp:
             {"question_text": "What does the 'M' in the IMSAFE checklist stand for?", "options": ["Macho", "Mental state", "Medication", "Motivation"], "correct_answer": "Medication", "explanation": "The 'M' prompts a pilot to consider any prescription or over-the-counter medications they are taking and the potential effects those drugs could have on their ability to fly safely."},
             {"question_text": "The decision to continue a flight into deteriorating weather because you've already flown most of the way is an example of what cognitive bias?", "options": ["Confirmation Bias", "Optimism Bias", "Sunk Cost Fallacy", "Anchoring Bias"], "correct_answer": "Sunk Cost Fallacy", "explanation": "This is the fallacy of continuing a course of action because of the time or effort already invested. The safe decision is to turn around, regardless of how much progress you've made."},  
         ]
+
+# -----------------------------------------------------------------------------
+# APPLICATION ENTRY POINT
+# -----------------------------------------------------------------------------
+# This is the main execution block that runs when the script is executed
+# directly. It initializes the Tkinter root window, creates an instance of the
+# main application class, and then dynamically populates the study topic
+# content, replacing the "..." placeholders with the full, detailed text.
+# Finally, it starts the Tkinter main event loop, which runs the application.
+# -----------------------------------------------------------------------------
     
 if __name__ == "__main__":
     root = tk.Tk()
@@ -1145,7 +1229,7 @@ if __name__ == "__main__":
 
             Ground Effect:
                 An aerodynamic phenomenon where the wings become more efficient due to the compression of air between the wings and the ground, typically occurring when flying within one wingspan of the surface.
-                It reduces induced drag, causing the aircraft to "float" during landing or become airborne before reaching a safe climbing speed during takeoff.
+                It reduces induced drag, causing the aircraft to "float" during landing or become airborne before it has reached a safe climbing speed during takeoff.
 
             Relationship between Airspeed and Lift:
                 Lift increases as the square of the airspeed increases (L ~ V^2). Doubling your airspeed quadruples the amount of lift generated, assuming all other factors remain constant.
