@@ -1,7 +1,7 @@
 # Upwind
 **Upwind: Part 103 Prep** is a desktop application designed to help you prepare for your ultralight adventures. Study key topics and test your knowledge with a comprehensive quiz feature.
 
-![UpwindScreenshot_2025-06-19](https://github.com/user-attachments/assets/0ea8009d-8ff2-474d-a06b-01d069985bb2)
+<img width="50%" alt="Upwind: 2026-10-09" src="https://github.com/user-attachments/assets/93673355-7230-44b6-9d80-f28d6d00af51" />
 
 
 ## Features
@@ -42,7 +42,7 @@ No installation is required to use this application.
 4.  Run the following command:
 
     ```bash
-    python Upwind-103_Prep.py
+    python upwind.py
     ```
 
 ## Disclaimer
