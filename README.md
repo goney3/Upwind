@@ -1,13 +1,19 @@
 # Upwind
 **Upwind: Part 103 Prep** is a desktop application designed to help you prepare for your ultralight adventures. Study key topics and test your knowledge with a comprehensive quiz feature.
 
+Tkinter based GUI:
+
 <img width="50%" alt="Upwind: 2026-10-09" src="https://github.com/user-attachments/assets/93673355-7230-44b6-9d80-f28d6d00af51" />
 
+
+Terminal based TUI:
+
+<img width="50%" alt="Upwind TUI: 2026-10-12" src="https://github.com/user-attachments/assets/241fd2e4-a251-428d-9d25-5c65d3f29863" />
 
 ## Features
 
 *   **Study Guides:** Access 10 different study topics covering essential knowledge for ultralight pilots.
-*   **Large Question Pool:** The quiz pulls from a pool of approximately 300 questions, ensuring a different experience each time.
+*   **Large Question Pool:** The quiz pulls from a pool of approximately 90 questions, ensuring a different experience each time.
 *   **Randomized Quizzes:** Each quiz consists of 20 randomly selected questions to test your knowledge.
 *   **Instant Feedback:** Quizzes are automatically graded, and you can review any incorrect answers to help you learn.
 
@@ -39,7 +45,7 @@ No installation is required to use this application.
 1.  Download the Python script.
 2.  Open a terminal or command prompt.
 3.  Navigate to the directory where you saved the file.
-4.  Run the following command:
+4.  Run the following command for the GUI version:
 
     ```bash
     python upwind.py
