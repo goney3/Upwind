@@ -48,3 +48,23 @@ MAX_STALL_SPEED_KTS = 24.0        # 28 mph
 BRS_WEIGHT_ALLOWANCE_LBS = 24.0
 AMPHIB_FLOAT_ALLOWANCE_LBS = 60.0
 SINGLE_FLOAT_ALLOWANCE_LBS = 30.0
+
+# Weight & Balance teaching model. Shared by the Tkinter and curses front ends
+# so the two can never drift apart. Stations are inches aft of the datum. The
+# baggage/equipment station sits well aft of the wing (52") so an aft-CG loading
+# is genuinely reachable, and the legal band is only 3.0" wide, so a heavy pilot
+# with no fuel or ballast runs out the forward limit. Both failure modes the
+# lesson is meant to teach.
+WB_EMPTY_ARM = 28.5
+WB_PILOT_ARM = 25.0
+WB_FUEL_ARM = 36.0
+WB_BAGGAGE_ARM = 52.0
+WB_CL_ARM = 28.5
+WB_FWD_LIMIT = 27.5
+WB_AFT_LIMIT = 30.5
+WB_FUEL_LB_PER_GAL = 6.0
+WB_MIN_PILOT_LBS = 100.0
+WB_MAX_PILOT_LBS = 280.0
+WB_MAX_BAGGAGE_LBS = 50.0
+WB_SCALE_MIN_IN = 25.0            # beam diagram scale, in inches aft of datum
+WB_SCALE_MAX_IN = 32.0

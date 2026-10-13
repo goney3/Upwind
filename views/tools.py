@@ -17,25 +17,27 @@ class WeightBalanceTool:
         Label(card, text="Ultralight Weight & Balance: Center of Gravity (CG) Envelope", font=config.FONT_TITLE,
               bg=config.BG_CARD, fg=config.TEXT_PRIMARY).pack(anchor="w")
         Label(card, text="In a 254-lb airframe, a 200-lb pilot accounts for ~44% of total flight weight! "
-                        "An aft CG reduces elevator control authority, making stall and spin recovery aerodynamically impossible.",
+                        "Fuel (arm 36\") and baggage (arm 52\") hang aft of the wing, and the legal CG band is only 3.0\" wide. "
+                        "Run out the forward limit and there is no elevator authority left to flare; "
+                        "run out the aft one and stall and spin recovery become aerodynamically impossible.",
               font=config.FONT_BODY, bg=config.BG_CARD, fg=config.TEXT_MUTED, wraplength=720, justify="left").pack(anchor="w", pady=(4, 12))
 
         ctrl_frame = Frame(card, bg=config.BG_CARD)
         ctrl_frame.pack(fill="x", pady=5)
 
         Label(ctrl_frame, text="Pilot Body Weight (lbs):", font=config.FONT_BODY_BOLD, bg=config.BG_CARD, fg=config.TEXT_PRIMARY).grid(row=0, column=0, sticky="w", pady=4)
-        pilot_slider = Scale(ctrl_frame, from_=100, to=280, orient=HORIZONTAL, bg=config.BG_CARD, fg="#ffffff", highlightthickness=0, length=240)
+        pilot_slider = Scale(ctrl_frame, from_=config.WB_MIN_PILOT_LBS, to=config.WB_MAX_PILOT_LBS, orient=HORIZONTAL, bg=config.BG_CARD, fg="#ffffff", highlightthickness=0, length=240)
         pilot_slider.set(185)
         pilot_slider.grid(row=0, column=1, padx=10)
 
         Label(ctrl_frame, text="Fuel Onboard (Gallons):", font=config.FONT_BODY_BOLD, bg=config.BG_CARD, fg=config.TEXT_PRIMARY).grid(row=1, column=0, sticky="w", pady=4)
-        fuel_slider = Scale(ctrl_frame, from_=0, to=5, resolution=0.5, orient=HORIZONTAL, bg=config.BG_CARD, fg="#ffffff", highlightthickness=0, length=240)
+        fuel_slider = Scale(ctrl_frame, from_=0, to=config.MAX_FUEL_CAPACITY_GALLONS, resolution=0.5, orient=HORIZONTAL, bg=config.BG_CARD, fg="#ffffff", highlightthickness=0, length=240)
         fuel_slider.set(5.0)
         fuel_slider.grid(row=1, column=1, padx=10)
 
         Label(ctrl_frame, text="Aft Equipment / Baggage (lbs):", font=config.FONT_BODY_BOLD, bg=config.BG_CARD, fg=config.TEXT_PRIMARY).grid(row=2, column=0, sticky="w", pady=4)
-        bag_slider = Scale(ctrl_frame, from_=0, to=30, orient=HORIZONTAL, bg=config.BG_CARD, fg="#ffffff", highlightthickness=0, length=240)
-        bag_slider.set(5)
+        bag_slider = Scale(ctrl_frame, from_=0, to=config.WB_MAX_BAGGAGE_LBS, orient=HORIZONTAL, bg=config.BG_CARD, fg="#ffffff", highlightthickness=0, length=240)
+        bag_slider.set(10)
         bag_slider.grid(row=2, column=1, padx=10)
 
         c_w, c_h = 760, 240
@@ -50,21 +52,23 @@ class WeightBalanceTool:
             f_wt = fuel_slider.get() * 6.0
             b_wt = bag_slider.get()
 
-            empty_wt, empty_arm = 254.0, 28.5
-            p_arm, f_arm, b_arm = 25.0, 36.0, 42.0
+            empty_wt = config.MAX_EMPTY_WEIGHT_POWERED_LBS
+            empty_arm, p_arm = config.WB_EMPTY_ARM, config.WB_PILOT_ARM
+            f_arm, b_arm = config.WB_FUEL_ARM, config.WB_BAGGAGE_ARM
 
             total_weight = empty_wt + p_wt + f_wt + b_wt
             total_moment = (empty_wt * empty_arm) + (p_wt * p_arm) + (f_wt * f_arm) + (b_wt * b_arm)
             cg = total_moment / total_weight
 
-            fwd_limit, aft_limit = 26.5, 30.5
+            fwd_limit, aft_limit = config.WB_FWD_LIMIT, config.WB_AFT_LIMIT
             cg_canvas.delete("all")
 
             beam_y = 120
             cg_canvas.create_rectangle(60, beam_y - 8, c_w - 60, beam_y + 8, fill="#40444b", outline="#ffffff")
 
             def _in_to_x(val):
-                return 200 + (val - 25.0) * (360.0 / 7.0)
+                span = config.WB_SCALE_MAX_IN - config.WB_SCALE_MIN_IN
+                return 200 + (val - config.WB_SCALE_MIN_IN) * (360.0 / span)
 
             x_fwd, x_aft = _in_to_x(fwd_limit), _in_to_x(aft_limit)
             cg_canvas.create_rectangle(x_fwd, beam_y - 18, x_aft, beam_y + 18, fill="#2a623d", outline=config.ACCENT_GREEN, width=2)
@@ -73,7 +77,7 @@ class WeightBalanceTool:
             cg_canvas.create_text(x_fwd, beam_y - 30, text=f"FWD LIMIT\n{fwd_limit}\"", font=("Helvetica", 8, "bold"), fill="#ffffff", justify="center")
             cg_canvas.create_text(x_aft, beam_y - 30, text=f"AFT LIMIT\n{aft_limit}\"", font=("Helvetica", 8, "bold"), fill="#ffffff", justify="center")
 
-            cl_x = _in_to_x(28.5)
+            cl_x = _in_to_x(config.WB_CL_ARM)
             cg_canvas.create_polygon(cl_x - 14, beam_y + 40, cl_x + 14, beam_y + 40, cl_x, beam_y + 10, fill="#00b0f4")
             cg_canvas.create_text(cl_x, beam_y + 55, text="Center of Lift (CL)", font=("Helvetica", 9, "bold"), fill="#00b0f4")
 
@@ -88,7 +92,7 @@ class WeightBalanceTool:
             if cg > aft_limit:
                 status_lbl.config(text=f"⚠️ DANGER: AFT CG VIOLATION ({cg:.2f}\")! Severe pitch instability — Spin recovery will be impossible!", fg=config.ACCENT_RED)
             elif cg < fwd_limit:
-                status_lbl.config(text=f"⚠️ DANGER: FORWARD CG LIMIT EXCEEDED ({cg:.2f}\")! Heavy stick forces — Insufficient elevator to flare!", fg=config.ACCENT_AMBER)
+                status_lbl.config(text=f"⚠️ DANGER: FORWARD CG ({cg:.2f}\")! No elevator authority left to flare — nose drops on short final!", fg=config.ACCENT_AMBER)
             else:
                 status_lbl.config(text=f"✓ CENTER OF GRAVITY WITHIN SAFE ENVELOPE ({cg:.2f}\") — Total Weight: {int(total_weight)} lbs", fg=config.ACCENT_GREEN)
 
